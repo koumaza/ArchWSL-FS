@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ARCH="x86_64"
-ROOTFS_VER="2021.04.01"
+ROOTFS_VER=$(curl -sLo- https://mirrors.kernel.org/archlinux/iso|xmllint --xpath '/html/body/pre/a' --html -|awk -F\" 'NR%1==0{print$2}'|grep -vE '\\.\\./|latest/|archboot/'|tr -d '/'|tail -n 1)
 ROOTFS_FN="archlinux-bootstrap-${ROOTFS_VER}-${ARCH}.tar.gz"
 ROOTFS_URL="https://mirrors.edge.kernel.org/archlinux/iso/${ROOTFS_VER}/${ROOTFS_FN}"
 
